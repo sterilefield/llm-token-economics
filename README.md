@@ -1,6 +1,6 @@
 # LLM token economics
 
-**How a 15-agent production fleet went from 12.0 M to 1.0 M heartbeat tokens a day (−91%) and the 18 methods behind it.**
+**How a 15-agent production fleet went from 12.0 M to 1.0 M heartbeat tokens a day (−91%), and the 18 methods behind it.**
 
 A case study and playbook from production multi-agent systems built on the same platform, including a 15-agent WhatsApp and Telegram operations platform for a real-estate brokerage (client anonymised). The figures come from per-agent, per-run token telemetry. No prompts, configurations or client data are published here.
 
