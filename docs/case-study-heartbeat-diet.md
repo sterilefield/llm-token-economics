@@ -36,7 +36,7 @@ flowchart LR
 |---|---|---|---|
 | Fleet total | 12.0 M | 1.0 M | −91% |
 | Largest agent (live intake) | 7.2 M | 0.47 M | −93% |
-| Daily-summary agent | 1.3 M | 5 k | ~−100% |
+| A low-frequency agent (24 h interval) | 1.3 M | 5 k | ~−100% |
 | Several support agents | — | — | −97% to −99% |
 
 After the change, the measured 7-day total was 9.3 M tokens; on the day measured, use was 1.5 M against a 15 M budget (10%), with no 429 rate-limit errors in 24 hours.

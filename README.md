@@ -12,7 +12,7 @@ A case study and playbook from two production multi-agent systems: a WhatsApp an
 |---|---|---|---|
 | Heartbeat tokens per day (fleet) | 12.0 M | 1.0 M | −91% |
 | Largest single agent, heartbeat tokens per day | 7.2 M | 0.47 M | −93% |
-| Daily-summary agent, heartbeat tokens per day | 1.3 M | 5 k | ~−100% |
+| A low-frequency agent, heartbeat tokens per day | 1.3 M | 5 k | ~−100% |
 | Extraction cost per WhatsApp message | ~38 k tokens | ~4 k tokens | −89% (1,177 turns, 0 errors) |
 | Share of tokens served from prompt cache | — | 76% | — |
 | Marginal API cost per lead | — | ₹0 | free-first routing |
