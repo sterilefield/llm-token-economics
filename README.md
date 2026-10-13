@@ -2,7 +2,7 @@
 
 **How a 15-agent production fleet went from 12.0 M to 1.0 M heartbeat tokens a day (−91%) and the 18 methods behind it.**
 
-A case study and playbook from two production multi-agent systems: a WhatsApp and Telegram operations platform for a real-estate brokerage (client anonymised), and Empire OS, a self-hosted agent operating system. The measurements come from per-agent, per-run token telemetry. No prompts, configurations or client data are published here.
+A case study and playbook from production multi-agent systems built on the same platform, including a 15-agent WhatsApp and Telegram operations platform for a real-estate brokerage (client anonymised). The figures come from per-agent, per-run token telemetry. No prompts, configurations or client data are published here.
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sterilefield/llm-token-economics/badge)](https://scorecard.dev/viewer/?uri=github.com/sterilefield/llm-token-economics)
 
@@ -17,7 +17,7 @@ A case study and playbook from two production multi-agent systems: a WhatsApp an
 | Share of tokens served from prompt cache | — | 76% | — |
 | Marginal API cost per lead | — | ₹0 | free-first routing |
 
-Before/after accounting runs per agent, per run and per day from the moment of the change, so the before and after heartbeat figures come from the same telemetry.
+Accounting runs per agent, per run and per day from the moment of the change.
 
 ## The principle
 
