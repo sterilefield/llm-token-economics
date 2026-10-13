@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "LLM token economics: cutting an agent fleet's heartbeat spend by 91 percent"
+type: software
+authors:
+  - family-names: "Thiriveedhi"
+    given-names: "Ravi Teja"
+repository-code: "https://github.com/sterilefield/llm-token-economics"
+version: "0.1.0"
+license: CC-BY-NC-ND-4.0
