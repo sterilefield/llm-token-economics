@@ -4,7 +4,7 @@
 
 A brokerage's operations platform ran 15 agents on WhatsApp and Telegram. Each agent "woke up" on a fixed heartbeat to check for work. Most heartbeats found nothing, but every one of them loaded a full prompt and called a model.
 
-Over 30 days the fleet used 473 M tokens, and heartbeats were 433 M of that.
+Over a 30-day window, 473.4 M tokens were used and heartbeats were 433 M of that, mostly before the change.
 
 ## Diagnosis
 

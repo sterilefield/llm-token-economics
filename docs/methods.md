@@ -19,7 +19,7 @@ Each method lists the problem, what changed, and the measured effect where one w
 | 6 | **Two-tier extraction** | Free rule-based parsing first; the LLM only fills gaps. Trivial lines are skipped, and extraction waits for 20 minutes of quiet and handles changes only | ~7.3 k tokens per lead with the second prompt version |
 | 7 | **Bilingual glossary in the prompt** | A Telugu/Hindi-in-English glossary so extraction succeeds on the first pass | Fewer retries (A/B test on 5 leads) |
 | 8 | **Local models for bulk or private work** | Photo descriptions (296) and embeddings run on a local model; the summary model moved local | 0 cloud tokens for media and memory |
-| 9 | **Free-first routing with tracked fallbacks** | Free and local providers first, paid as fallback; dead fallbacks counted; a noisy auto-router identified and disabled | ₹0 marginal API cost per lead |
+| 9 | **Free-first routing with tracked fallbacks** | Free and local providers first, paid as fallback; dead fallbacks counted (2 of 10); a noisy auto-router (168 errors) identified | ₹0 marginal API cost per lead |
 
 ## C · Zero-token engineering
 
