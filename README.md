@@ -17,7 +17,7 @@ A case study and playbook from two production multi-agent systems: a WhatsApp an
 | Share of tokens served from prompt cache | — | 76% | — |
 | Marginal API cost per lead | — | ₹0 | free-first routing |
 
-Before/after accounting runs per agent, per run and per day from the moment of the change, so every number in this table has a before and an after from the same telemetry.
+Before/after accounting runs per agent, per run and per day from the moment of the change, so the before and after heartbeat figures come from the same telemetry.
 
 ## The principle
 
