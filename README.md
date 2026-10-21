@@ -1,3 +1,8 @@
+<p align="center"><a href="https://sterilefield.github.io/llm-token-economics/"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/hero-dark.svg">
+  <img alt="LLM token economics: a 15-agent production fleet cut heartbeat tokens from 12.0 M to 1.0 M a day (−91%); 18 published methods; 76% of tokens from cache" src="docs/img/hero-light.svg" width="100%">
+</picture></a></p>
+
 # LLM token economics
 
 **How a 15-agent production fleet went from 12.0 M to 1.0 M heartbeat tokens a day (−91%), and the 18 methods behind it.**
@@ -9,7 +14,13 @@ A case study and playbook from production multi-agent systems built on the same 
 
 **[Methods](docs/methods.md) · [Heartbeat case study](docs/case-study-heartbeat-diet.md) · [Checklist](docs/checklist.md) · [Trust](TRUST.md) · [All showcases](https://github.com/sterilefield) · [Contact](https://www.linkedin.com/in/dr-ravi-teja-thiriveedhi)**
 
-[![CI](https://github.com/sterilefield/llm-token-economics/actions/workflows/ci.yml/badge.svg)](https://github.com/sterilefield/llm-token-economics/actions/workflows/ci.yml) [![Live demo](https://img.shields.io/badge/live_demo-open-1a7f37)](https://sterilefield.github.io/llm-token-economics/) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/sterilefield/llm-token-economics) [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sterilefield/llm-token-economics/badge)](https://scorecard.dev/viewer/?uri=github.com/sterilefield/llm-token-economics)
+[![CI](https://github.com/sterilefield/llm-token-economics/actions/workflows/ci.yml/badge.svg)](https://github.com/sterilefield/llm-token-economics/actions/workflows/ci.yml) [![Live demo](https://img.shields.io/badge/live_demo-open-1a7f37)](https://sterilefield.github.io/llm-token-economics/) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/sterilefield/llm-token-economics) [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sterilefield/llm-token-economics/badge)](https://scorecard.dev/viewer/?uri=github.com/sterilefield/llm-token-economics) [![Latest release](https://img.shields.io/github/v/release/sterilefield/llm-token-economics?label=release)](https://github.com/sterilefield/llm-token-economics/releases/latest) [![Attested builds](https://img.shields.io/badge/releases-attested_%2B_SBOM-1a7f37)](#verify-this-release)
+
+### See it in action
+
+<a href="https://sterilefield.github.io/llm-token-economics/"><img alt="Animated recording of the Heartbeat token calculator live demo: scripted interactions on invented data" src="docs/img/demo.gif" width="100%"></a>
+
+<sub>Recorded from the live demo page with scripted clicks, on invented data. [Open the demo](https://sterilefield.github.io/llm-token-economics/) to try it yourself.</sub>
 
 ## Results
 
@@ -82,11 +93,12 @@ I write the specifications, architecture, acceptance criteria and review gates; 
 
 ## Verify this release
 
-Every release carries a build-provenance attestation for its source archive and an SPDX SBOM.
+Every release carries a build-provenance attestation for its source archive and an SPDX SBOM (the SBOM is attested too from v0.2.0). These commands fetch the latest release into a new folder and check both attestations:
 
 ```bash
-gh release download v0.1.0 -R sterilefield/llm-token-economics -p 'llm-token-economics-v0.1.0.tar.gz'
-gh attestation verify llm-token-economics-v0.1.0.tar.gz -R sterilefield/llm-token-economics
+gh release download -R sterilefield/llm-token-economics -p '*.tar.gz' -p 'sbom.spdx.json' -D verify-latest
+gh attestation verify verify-latest/llm-token-economics-*.tar.gz -R sterilefield/llm-token-economics
+gh attestation verify verify-latest/llm-token-economics-*.tar.gz -R sterilefield/llm-token-economics --predicate-type https://spdx.dev/Document/v2.3
 ```
 
 ## Author
