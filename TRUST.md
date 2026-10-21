@@ -7,7 +7,7 @@
 Case study and playbook (documentation). Engineers and founders who run agent fleets and want to cut token spend with measured, repeatable methods.
 
 ## Out of scope
-It is not a pricing guarantee, a benchmark of model providers or a hosted tool.
+It is not a pricing guarantee, a benchmark of model providers or a hosted product. `demo/` and `site/` are a small teaching calculator on an invented example fleet; they do not reproduce the measured results.
 
 ## Limitations
 - Savings were measured on the author's fleets; your baseline and workload decide your result.

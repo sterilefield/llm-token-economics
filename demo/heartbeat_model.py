@@ -23,14 +23,14 @@ from dataclasses import dataclass
 DAY_MIN = 24 * 60
 
 EXAMPLE_FLEET = [  # synthetic, chosen only to show the shape of the calculation
-    {"name": "intake", "interval_min": 30, "tokens": 18000, "changed": 0.40, "new_interval_min": 60},
-    {"name": "follow-up", "interval_min": 30, "tokens": 14000, "changed": 0.10, "new_interval_min": 240},
-    {"name": "scheduler", "interval_min": 30, "tokens": 9000, "changed": 0.05, "new_interval_min": 240},
-    {"name": "reporter", "interval_min": 30, "tokens": 12000, "changed": 0.02, "new_interval_min": 1440},
-    {"name": "inventory", "interval_min": 30, "tokens": 8000, "changed": 0.08, "new_interval_min": 360},
-    {"name": "research-scout", "interval_min": 30, "tokens": 16000, "changed": 0.03, "new_interval_min": 1440},
-    {"name": "qa-helper", "interval_min": 30, "tokens": 7000, "changed": 0.15, "new_interval_min": 120},
-    {"name": "watchdog", "interval_min": 30, "tokens": 6000, "changed": 0.01, "new_interval_min": 720},
+    {"name": "intake", "interval_min": 30, "tokens": 18000, "changed": 0.45, "new_interval_min": 30},
+    {"name": "follow-up", "interval_min": 30, "tokens": 14000, "changed": 0.20, "new_interval_min": 60},
+    {"name": "scheduler", "interval_min": 30, "tokens": 9000, "changed": 0.15, "new_interval_min": 120},
+    {"name": "reporter", "interval_min": 30, "tokens": 12000, "changed": 0.05, "new_interval_min": 360},
+    {"name": "inventory", "interval_min": 30, "tokens": 8000, "changed": 0.20, "new_interval_min": 120},
+    {"name": "research-scout", "interval_min": 30, "tokens": 16000, "changed": 0.10, "new_interval_min": 240},
+    {"name": "qa-helper", "interval_min": 30, "tokens": 7000, "changed": 0.30, "new_interval_min": 60},
+    {"name": "watchdog", "interval_min": 30, "tokens": 6000, "changed": 0.05, "new_interval_min": 180},
 ]
 
 
@@ -52,7 +52,8 @@ def model(agent: dict) -> Row:
     Method 2: a 0-token sentinel checks state first; the model runs only when something changed.
     With a longer interval, a wake is more likely to find a change, so the expected share of
     wakes that need the model is 1 - (1 - changed) ** (new / old)."""
-    old, new = agent["interval_min"], agent.get("new_interval_min", agent["interval_min"])
+    old = max(agent["interval_min"], 1)
+    new = max(agent.get("new_interval_min") or old, 1)
     before = wakes_per_day(old) * agent["tokens"]
     after_interval = wakes_per_day(new) * agent["tokens"]
     p_new = 1 - (1 - agent["changed"]) ** (new / old)
@@ -129,7 +130,8 @@ def main(argv: list[str]) -> int:
         what_if(iv, tk, 0.05, price)
         return 0
     print("Example fleet: invented for this demo (synthetic, not real)\n" if fleet is EXAMPLE_FLEET else "", end="")
-    report(fleet, price, budget=5e6 if fleet is EXAMPLE_FLEET else None)
+    report(fleet, price, budget=3e6 if fleet is EXAMPLE_FLEET else None)
+    print("measured case-study results: see the README; this example does not reproduce them")
     w, c = simulate_sentinel(0.05, 30)
     print(f"sentinel, one simulated day: {w} wakes at 0 tokens each, {c} model calls")
     return 0
