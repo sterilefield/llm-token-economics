@@ -10,6 +10,11 @@ Sanitised public showcase by Dr. Ravi Teja Thiriveedhi (clinician turned AI syst
 - [docs/case-study-heartbeat-diet.md](https://github.com/sterilefield/llm-token-economics/blob/main/docs/case-study-heartbeat-diet.md): The largest single win, step by step
 - [docs/checklist.md](https://github.com/sterilefield/llm-token-economics/blob/main/docs/checklist.md): One-page audit for any agent system
 
+## Demo
+
+- [Heartbeat token calculator](https://sterilefield.github.io/llm-token-economics/): live demo on invented data
+- [demo/heartbeat_model.py](https://github.com/sterilefield/llm-token-economics/blob/main/demo/heartbeat_model.py): runnable teaching model, standard library only
+
 ## Optional
 
 - [All showcases](https://github.com/sterilefield): the Sterile Field organisation
