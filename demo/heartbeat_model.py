@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-# Copyright 2026 Dr. Ravi Teja Thiriveedhi
+# Copyright 2026 Ravi Teja Thiriveedhi
 """heartbeat_model: estimate what methods 1, 2, 14 and 18 do to an agent fleet's heartbeat tokens.
 
     python3 demo/heartbeat_model.py                       # the invented example fleet
