@@ -1,6 +1,6 @@
 <p align="center"><a href="https://sterilefield.github.io/llm-token-economics/"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/hero-dark.svg">
-  <img alt="Banner: LLM token economics, with key figures from this README" src="docs/img/hero-light.svg" width="100%">
+  <img alt="LLM token economics: a 15-agent production fleet cut heartbeat tokens from 12.0 M to 1.0 M a day (−91%); 18 published methods; 76% of tokens from cache" src="docs/img/hero-light.svg" width="100%">
 </picture></a></p>
 
 # LLM token economics
@@ -18,7 +18,7 @@ A case study and playbook from production multi-agent systems built on the same 
 
 ### See it in action
 
-<a href="https://sterilefield.github.io/llm-token-economics/"><img alt="Animated recording of the Heartbeat token calculator live demo: real interactions on invented data" src="docs/img/demo.gif" width="100%"></a>
+<a href="https://sterilefield.github.io/llm-token-economics/"><img alt="Animated recording of the Heartbeat token calculator live demo: scripted interactions on invented data" src="docs/img/demo.gif" width="100%"></a>
 
 <sub>Recorded from the live demo page with scripted clicks, on invented data. [Open the demo](https://sterilefield.github.io/llm-token-economics/) to try it yourself.</sub>
 
@@ -93,11 +93,12 @@ I write the specifications, architecture, acceptance criteria and review gates; 
 
 ## Verify this release
 
-Every release carries a build-provenance attestation for its source archive and an SPDX SBOM (the SBOM is attested too from v0.2.0). These commands fetch the latest release:
+Every release carries a build-provenance attestation for its source archive and an SPDX SBOM (the SBOM is attested too from v0.2.0). These commands fetch the latest release into a new folder and check both attestations:
 
 ```bash
-gh release download -R sterilefield/llm-token-economics -p '*.tar.gz' -p 'sbom.spdx.json'
-gh attestation verify llm-token-economics-*.tar.gz -R sterilefield/llm-token-economics
+gh release download -R sterilefield/llm-token-economics -p '*.tar.gz' -p 'sbom.spdx.json' -D verify-latest
+gh attestation verify verify-latest/llm-token-economics-*.tar.gz -R sterilefield/llm-token-economics
+gh attestation verify verify-latest/llm-token-economics-*.tar.gz -R sterilefield/llm-token-economics --predicate-type https://spdx.dev/Document/v2.3
 ```
 
 ## Author
