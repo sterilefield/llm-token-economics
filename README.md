@@ -4,6 +4,11 @@
 
 A case study and playbook from production multi-agent systems built on the same platform, including a 15-agent WhatsApp and Telegram operations platform for a real-estate brokerage (client anonymised). The figures come from per-agent, per-run token telemetry. No prompts, configurations or client data are published here.
 
+> [!IMPORTANT]
+> **Status:** Playbook from measured production data (per-agent, per-run token telemetry). Last verified 21 Oct 2026. Not for clinical use as-is. Scope and limits: [TRUST.md](TRUST.md).
+
+**[Methods](docs/methods.md) · [Heartbeat case study](docs/case-study-heartbeat-diet.md) · [Checklist](docs/checklist.md) · [Trust](TRUST.md) · [All showcases](https://github.com/sterilefield) · [Contact](https://www.linkedin.com/in/dr-ravi-teja-thiriveedhi)**
+
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sterilefield/llm-token-economics/badge)](https://scorecard.dev/viewer/?uri=github.com/sterilefield/llm-token-economics)
 
 ## Results
@@ -46,6 +51,19 @@ Each method is written up with the problem, the change and the measured effect i
 ## Related
 
 - [empire-os-reference-architecture](https://github.com/sterilefield/empire-os-reference-architecture): the governed multi-agent platform these methods run on.
+
+## How this was built
+
+I write the specifications, architecture, acceptance criteria and review gates; AI coding agents (Claude Code and Codex) write most of the code under those specifications. I own every review, test gate, release decision and production operation. Text in this repository was drafted with AI assistance and passed gate G4, a review by a fresh-context AI agent that did not write it, before my own approval (G5).
+
+## Verify this release
+
+Every release carries a build-provenance attestation for its source archive and an SPDX SBOM.
+
+```bash
+gh release download v0.1.0 -R sterilefield/llm-token-economics -p 'llm-token-economics-v0.1.0.tar.gz'
+gh attestation verify llm-token-economics-v0.1.0.tar.gz -R sterilefield/llm-token-economics
+```
 
 ## Author
 

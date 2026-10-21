@@ -1,0 +1,16 @@
+# LLM token economics
+
+> Case study and playbook: a production agent fleet went from 12.0 M to 1.0 M heartbeat tokens a day (-91%) with 18 methods in five groups.
+
+Sanitised public showcase by Dr. Ravi Teja Thiriveedhi (clinician turned AI systems architect). Scope and limits: [TRUST.md](https://github.com/sterilefield/llm-token-economics/blob/main/TRUST.md).
+
+## Docs
+
+- [docs/methods.md](https://github.com/sterilefield/llm-token-economics/blob/main/docs/methods.md): The 18 methods: problem, change, measured effect
+- [docs/case-study-heartbeat-diet.md](https://github.com/sterilefield/llm-token-economics/blob/main/docs/case-study-heartbeat-diet.md): The largest single win, step by step
+- [docs/checklist.md](https://github.com/sterilefield/llm-token-economics/blob/main/docs/checklist.md): One-page audit for any agent system
+
+## Optional
+
+- [All showcases](https://github.com/sterilefield): the Sterile Field organisation
+- [Author](https://www.linkedin.com/in/dr-ravi-teja-thiriveedhi): LinkedIn
