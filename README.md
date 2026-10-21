@@ -9,7 +9,7 @@ A case study and playbook from production multi-agent systems built on the same 
 
 **[Methods](docs/methods.md) · [Heartbeat case study](docs/case-study-heartbeat-diet.md) · [Checklist](docs/checklist.md) · [Trust](TRUST.md) · [All showcases](https://github.com/sterilefield) · [Contact](https://www.linkedin.com/in/dr-ravi-teja-thiriveedhi)**
 
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sterilefield/llm-token-economics/badge)](https://scorecard.dev/viewer/?uri=github.com/sterilefield/llm-token-economics)
+[![CI](https://github.com/sterilefield/llm-token-economics/actions/workflows/ci.yml/badge.svg)](https://github.com/sterilefield/llm-token-economics/actions/workflows/ci.yml) [![Live demo](https://img.shields.io/badge/live_demo-open-1a7f37)](https://sterilefield.github.io/llm-token-economics/) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/sterilefield/llm-token-economics) [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/sterilefield/llm-token-economics/badge)](https://scorecard.dev/viewer/?uri=github.com/sterilefield/llm-token-economics)
 
 ## Results
 
@@ -51,6 +51,30 @@ Each method is written up with the problem, the change and the measured effect i
 ## Related
 
 - [empire-os-reference-architecture](https://github.com/sterilefield/empire-os-reference-architecture): the governed multi-agent platform these methods run on.
+
+## Try it
+
+**[Heartbeat token calculator](https://sterilefield.github.io/llm-token-economics/)**: edit an example fleet and see what per-agent intervals and a 0-token sentinel do to daily tokens; price a new agent before building it. It runs in your browser on invented data.
+
+<a href="https://sterilefield.github.io/llm-token-economics/"><picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/demo-page-dark.png">
+  <img alt="Screenshot of the Heartbeat token calculator demo page, showing invented data" src="docs/img/demo-page-light.png" width="100%">
+</picture></a>
+
+Or run the same logic yourself (Python 3, standard library only, nothing to install):
+
+```bash
+git clone https://github.com/sterilefield/llm-token-economics.git
+cd llm-token-economics
+python3 demo/heartbeat_model.py
+```
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/demo-terminal-dark.svg">
+  <img alt="Terminal recording of python3 demo/heartbeat_model.py: the real output of the demo" src="docs/img/demo-terminal-light.svg" width="100%">
+</picture>
+
+The terminal image is the real output of that command, rendered by `scripts/term_svg.py`. Everything in `demo/` and `site/` is a calculator written for this repository on invented data. It is not production code, and the tests in `tests/` run on every pull request.
 
 ## How this was built
 

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heartbeat Token Calculator</title>
+<meta name="description" content="Interactive estimate of how per-agent heartbeat intervals and a 0-token sentinel cut an agent fleet's token spend. Invented example fleet; edit it to match yours.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header>
+  <h1>Heartbeat token calculator</h1>
+  <p>Agents that wake on a timer and call a model every time burn tokens even when nothing has changed. Edit the fleet below to see what two methods from the playbook would do: <b>longer per-agent intervals</b> (method 1) and a <b>0-token sentinel</b> that calls the model only when state changed (method 2).</p>
+  <div class="chips"><span class="chip warn">Invented example fleet · not real</span><span class="chip">An estimate, not a measurement</span><span class="chip">Runs in your browser</span><a class="chip" href="https://github.com/sterilefield/llm-token-economics">Playbook and case study</a></div>
+</header>
+
+<div class="grid">
+  <section class="card wide">
+    <h2>Totals per day</h2>
+    <div class="row">
+      <div><div class="dim">Before</div><div class="big" id="tBefore">–</div></div>
+      <div><div class="dim">+ method 1 (intervals)</div><div class="big" id="tInterval">–</div></div>
+      <div><div class="dim">+ method 2 (sentinel)</div><div class="big ok" id="tAfter">–</div></div>
+      <div><div class="dim">Change</div><div class="big ok" id="tChange" aria-live="polite">–</div></div>
+      <div><label for="price" style="margin-top:0">Price per million tokens</label><input type="number" id="price" min="0" step="0.05" value="0.40"><div class="dim" id="cost" style="font-size:13px;margin-top:4px"></div></div>
+    </div>
+  </section>
+
+  <section class="card wide">
+    <h2>Your fleet</h2>
+    <p class="dim" style="margin:0 0 8px;font-size:13px">"Changed" is the share of heartbeats that actually find something new. Most find nothing.</p>
+    <div class="scroll"><table id="fleet"><thead><tr><th>Agent</th><th>Interval today (min)</th><th>Tokens per wake</th><th>Changed (%)</th><th>New interval (min)</th><th style="width:30%">Tokens a day: before / after</th></tr></thead><tbody></tbody></table></div>
+    <p><button id="add">Add agent</button> <button id="reset">Reset example</button></p>
+  </section>
+
+  <section class="card">
+    <h2>Price a new agent first (method 18)</h2>
+    <label for="wInt">Wakes every (minutes)</label><input type="number" id="wInt" value="120" min="1">
+    <label for="wTok">Tokens per wake</label><input type="number" id="wTok" value="9000" min="0">
+    <label for="wCh">Changed (%)</label><input type="number" id="wCh" value="5" min="0" max="100">
+    <pre id="whatif" class="mono"></pre>
+  </section>
+
+  <section class="card">
+    <h2>How the estimate works</h2>
+    <p style="margin:0;font-size:14px">Before: wakes a day × tokens per wake. Method 1: the same with the new interval. Method 2: a deterministic check runs on every wake at 0 tokens and calls the model only when something changed. A longer interval makes a change more likely per wake, so the share becomes 1 − (1 − changed)<sup>new / old</sup>. The same formula is in <code>demo/heartbeat_model.py</code>, which you can run on your own fleet file.</p>
+  </section>
+</div>
+<footer>Teaching demo written for this repository, not for clinical use. The measured production results are in the <a href="https://github.com/sterilefield/llm-token-economics#results">case study</a>; this page does not reproduce them. <a href="https://github.com/sterilefield/llm-token-economics/blob/main/TRUST.md">Scope and limits</a>.</footer>
+</main>
+<script>
+const EXAMPLE=[["intake",30,18000,45,30],["follow-up",30,14000,20,60],["scheduler",30,9000,15,120],["reporter",30,12000,5,360],["inventory",30,8000,20,120],["research-scout",30,16000,10,240],["qa-helper",30,7000,30,60],["watchdog",30,6000,5,180]];
+let fleet=EXAMPLE.map(r=>r.slice());
+const $=id=>document.getElementById(id);
+const fmt=n=>n>=1e6?(n/1e6).toFixed(2)+" M":n>=1e3?(n/1e3).toFixed(1)+" k":Math.round(n).toString();
+const wakes=iv=>1440/Math.max(iv,1);
+function model([,iv,tok,ch,niv]){iv=Math.max(Number(iv)||0,1);niv=Math.max(Number(niv)||iv,1);tok=Math.max(Number(tok)||0,0);ch=Math.min(Math.max(Number(ch)||0,0),100)/100;const b=wakes(iv)*tok,i=wakes(niv)*tok,p=1-Math.pow(1-ch,niv/iv);return[b,i,wakes(niv)*p*tok]}
+const LABELS=["name","interval today in minutes","tokens per wake","changed percent","new interval in minutes"];
+function build(){
+  const tb=$("fleet").querySelector("tbody");tb.replaceChildren();
+  fleet.forEach((r,idx)=>{const tr=document.createElement("tr");
+    for(let k=0;k<5;k++){const td=document.createElement("td");const inp=document.createElement("input");
+      if(k){inp.type="number";inp.min=k===1||k===4?"1":"0";if(k===3)inp.max="100"}else{inp.style.cssText="width:100%;font:inherit;background:transparent;color:inherit;border:0"}
+      inp.value=r[k];inp.setAttribute("aria-label",LABELS[k]+" for agent "+(idx+1));
+      inp.addEventListener("input",()=>{fleet[idx][k]=k?Number(inp.value):inp.value;update()});td.appendChild(inp);tr.appendChild(td)}
+    const td=document.createElement("td");td.innerHTML='<div class="bar"></div><div class="bar after" style="margin-top:3px"></div><span class="dim mono" style="font-size:12px"></span>';tr.appendChild(td);tb.appendChild(tr)});
+  update();
+}
+function update(){
+  let T=[0,0,0];const ms=fleet.map(model);const max=Math.max(1,...ms.map(m=>m[0]));
+  [...$("fleet").querySelectorAll("tbody tr")].forEach((tr,i)=>{const m=ms[i];T=T.map((t,k)=>t+m[k]);const bars=tr.querySelectorAll(".bar");bars[0].style.width=m[0]/max*100+"%";bars[1].style.width=m[2]/max*100+"%";tr.querySelector("span").textContent=fmt(m[0])+" → "+fmt(m[2])});
+  $("tBefore").textContent=fmt(T[0]);$("tInterval").textContent=fmt(T[1]);$("tAfter").textContent=fmt(T[2]);
+  const ch=T[0]?Math.round((T[2]-T[0])/T[0]*100):0;$("tChange").textContent=T[0]?(ch>0?"+":"")+ch+"%":"–";$("tChange").className="big "+(ch>0?"bad":"ok");
+  const p=Number($("price").value)||0;$("cost").textContent="cost a day: "+(T[0]/1e6*p).toFixed(2)+" → "+(T[2]/1e6*p).toFixed(2);
+  const iv=Math.max(Number($("wInt").value)||1,1),tk=Number($("wTok").value)||0,c=Math.min(Math.max((Number($("wCh").value)||0)/100,0),1),pd=wakes(iv)*tk;
+  $("whatif").textContent=`without a sentinel: ${fmt(pd)} a day, ${fmt(pd*30)} a month\nwith a sentinel:    ${fmt(pd*c)} a day, ${fmt(pd*c*30)} a month\nmonthly cost: ${(pd*30/1e6*p).toFixed(2)} → ${(pd*c*30/1e6*p).toFixed(2)}`;
+}
+$("add").onclick=()=>{fleet.push(["new-agent",30,5000,10,120]);build()};
+$("reset").onclick=()=>{fleet=EXAMPLE.map(r=>r.slice());build()};
+["price","wInt","wTok","wCh"].forEach(id=>$(id).addEventListener("input",update));build();
+</script>
+</body>
+</html>
